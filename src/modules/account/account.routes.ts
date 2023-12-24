@@ -1,7 +1,7 @@
 import { App } from "../../build"
 import { CreateAccountSchema } from "./schemas/create-account.schema"
 
-export const accountRoutes = (app: App) => {
+export const accountRoutes = async (app: App) => {
   const accountService = app.accountService
 
   app.post(

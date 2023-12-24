@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm"
 import { users } from "../../schema"
-import { Drizzle } from "../../plugins/db"
+import { Drizzle } from "../../plugins/db.plugin"
 
 export type CreateUser = {
   fullName: string

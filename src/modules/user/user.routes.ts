@@ -1,7 +1,7 @@
 import { App } from "../../build"
 import { CreateUserSchema } from "./schemas/create-user.schema"
 
-export const userRoutes = (app: App) => {
+export const userRoutes = async (app: App) => {
   const userService = app.userService!
 
   app.post(

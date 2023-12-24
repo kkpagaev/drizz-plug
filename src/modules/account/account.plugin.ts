@@ -1,8 +1,6 @@
-import { FastifyInstance } from "fastify"
 import { AccountService } from "./account.service"
 import fastifyPlugin from "fastify-plugin"
 import { accountRoutes } from "./account.routes"
-import { ZodTypeProvider } from "fastify-type-provider-zod"
 
 declare module "fastify" {
   interface FastifyInstance {
@@ -12,16 +10,19 @@ declare module "fastify" {
 
 // module
 export default fastifyPlugin(
-  async (app: FastifyInstance) => {
+  async (app) => {
     const userService = app.userService
 
     const svc = new AccountService(app.db, userService)
 
     app.decorate("accountService", svc, ["db", "userService"])
 
-    accountRoutes(app.withTypeProvider<ZodTypeProvider>())
+    await app.register(accountRoutes, {
+      prefix: "/account"
+    })
   },
   {
+    name: "account",
     dependencies: ["user"]
   }
 )

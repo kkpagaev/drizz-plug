@@ -16,6 +16,9 @@ export const appPlugin: FastifyPluginAsync = async (app) => {
 
   await app.register(fastifyAutoload, {
     dir: join(__dirname, "modules"),
+    prefix: "/api",
+    dirNameRoutePrefix: false,
+    encapsulate: true,
     maxDepth: 1
   })
 }

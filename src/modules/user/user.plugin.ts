@@ -1,6 +1,7 @@
 import { FastifyInstance } from "fastify"
 import { UserService } from "./user.service"
 import fastifyPlugin from "fastify-plugin"
+import { userRoutes } from "./user.routes"
 
 declare module "fastify" {
   interface FastifyInstance {
@@ -13,9 +14,12 @@ export default fastifyPlugin(
     const svc = new UserService(app.db)
 
     app.decorate("userService", svc, ["db"])
+
+    await app.register(userRoutes, {
+      prefix: "/user"
+    })
   },
   {
-    name: "user",
-    dependencies: ["db"]
+    name: "user"
   }
 )

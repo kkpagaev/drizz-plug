@@ -1,6 +1,6 @@
 import { migrate } from "drizzle-orm/node-postgres/migrator"
-import { getConfig } from "./plugins/config"
-import { createDrizzle } from "./plugins/db"
+import { getConfig } from "./plugins/config.plugin"
+import { createDrizzle } from "./plugins/db.plugin"
 
 async function run_migration() {
   const { dbUrl } = getConfig()
