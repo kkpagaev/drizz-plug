@@ -1,4 +1,4 @@
-import { relations } from "drizzle-orm"
+import { relations, InferSelectModel } from "drizzle-orm"
 import { integer, pgTable, serial, text, varchar } from "drizzle-orm/pg-core"
 
 export const users = pgTable("users", {
@@ -6,6 +6,8 @@ export const users = pgTable("users", {
   fullName: text("full_name").notNull(),
   username: varchar("username", { length: 256 }).notNull()
 })
+
+export type User = InferSelectModel<typeof users>
 
 export const userRelations = relations(users, ({ one }) => ({
   account: one(accounts)

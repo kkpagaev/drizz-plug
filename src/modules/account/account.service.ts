@@ -2,8 +2,8 @@ import { eq } from "drizzle-orm"
 import { accounts } from "../../schema"
 import { CreateUser, UserService } from "../user/user.service"
 import { Drizzle } from "../../plugins/db.plugin"
-import { JwtService } from "../jwt/jwt.service"
 import { compareSync, hash } from "bcrypt"
+import { JwtService } from "../../plugins/jwt/jwt.service"
 
 export type CreateAccount = {
   email: string
