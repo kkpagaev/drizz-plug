@@ -1,0 +1,46 @@
+{
+  "name": "drizz-plug",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "packageManager": "yarn@3.5.0",
+  "scripts": {
+    "dev": "tsup --watch",
+    "debug": "tsup --watch --onSuccess \"NODE_ENV=dev node --inspect --enable-source-maps -r tsconfig-paths/register dist/index.js\"",
+    "brk": "tsup --watch --onSuccess \"NODE_ENV=dev node --inspect-brk --enable-source-maps -r tsconfig-paths/register dist/index.js\"",
+    "introspect": "drizzle-kit introspect:pg",
+    "generate": "drizzle-kit generate:pg",
+    "migrate": "tsx src/migrate.ts",
+    "test": "NODE_ENV=test vitest",
+    "test:debug": "NODE_ENV=test node --inspect -r tsconfig-paths/register ./node_modules/.bin/vitest"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/pg": "^8.10.9",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "drizzle-kit": "^0.20.7",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-prettier": "^5.1.1",
+    "prettier": "^3.1.1",
+    "tsconfig-paths": "^4.2.0",
+    "typescript-eslint": "^0.0.1-alpha.0",
+    "vue-eslint-parser": "^9.3.2"
+  },
+  "dependencies": {
+    "@fastify/autoload": "^5.8.0",
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.3.1",
+    "drizzle-orm": "^0.29.1",
+    "fastify": "^4.25.1",
+    "fastify-plugin": "^4.5.1",
+    "fastify-type-provider-zod": "^1.1.9",
+    "pg": "^8.11.3",
+    "tsup": "^8.0.1",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3",
+    "zod": "^3.22.4"
+  }
+}

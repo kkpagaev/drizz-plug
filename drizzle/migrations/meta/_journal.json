@@ -1,0 +1,27 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1703380719999,
+      "tag": "0000_fuzzy_sersi",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1703411432011,
+      "tag": "0001_motionless_colonel_america",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1703418089356,
+      "tag": "0002_powerful_puma",
+      "breakpoints": true
+    }
+  ]
+}
