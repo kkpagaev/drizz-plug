@@ -4,6 +4,7 @@ import * as dotenv from "dotenv"
 
 export const ConfigSchema = z.object({
   DB_URL: z.string().default("postgres://user:user@localhost:7780/user"),
+  REDIS_URL: z.string().default("redis://localhost:6381"),
   JWT_SECRET: z.string().default("secret")
 })
 
