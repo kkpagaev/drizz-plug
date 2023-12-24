@@ -26,12 +26,6 @@ export class AccountService {
     }
 
     const user = await this.db.transaction(async (trx) => {
-      const hashedPassword = await hash(password, 10)
-      await trx.insert(accounts).values({
-        email,
-        password: hashedPassword
-      })
-
       const user = await this.userSerice.create(
         {
           fullName: dto.fullName,
@@ -39,6 +33,13 @@ export class AccountService {
         },
         trx
       )
+
+      const hashedPassword = await hash(password, 10)
+      await trx.insert(accounts).values({
+        email,
+        password: hashedPassword,
+        userId: user.id
+      })
 
       return user
     })
@@ -53,8 +54,10 @@ export class AccountService {
       throw new Error("invalid credentials")
     }
 
+    const user = await this.userSerice.find(account.userId)
+
     const token = this.jwtService.sign({
-      userId: account.id
+      userId: user!.id
     })
 
     return token

@@ -1,4 +1,5 @@
-import { pgTable, serial, text, varchar } from "drizzle-orm/pg-core"
+import { relations } from "drizzle-orm"
+import { integer, pgTable, serial, text, varchar } from "drizzle-orm/pg-core"
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
@@ -6,8 +7,15 @@ export const users = pgTable("users", {
   username: varchar("username", { length: 256 }).notNull()
 })
 
+export const userRelations = relations(users, ({ one }) => ({
+  account: one(accounts)
+}))
+
 export const accounts = pgTable("accounts", {
   id: serial("id").primaryKey(),
   email: varchar("email", { length: 256 }).unique().notNull(),
-  password: varchar("password", { length: 256 }).notNull()
+  password: varchar("password", { length: 256 }).notNull(),
+  userId: integer("user_id")
+    .references(() => users.id)
+    .notNull()
 })

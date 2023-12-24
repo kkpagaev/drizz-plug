@@ -23,7 +23,9 @@ export class UserService {
   }
 
   async find(id: number) {
-    const user = await this.db.select().from(users).where(eq(users.id, id))
+    const user = await this.db.query.users.findFirst({
+      where: eq(users.id, id)
+    })
 
     return user
   }
