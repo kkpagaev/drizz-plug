@@ -12,9 +12,8 @@ declare module "fastify" {
 // module
 export default fastifyPlugin(accountPlugin, {
   name: "account",
-  dependencies: ["user"]
+  dependencies: ["user", "db"]
 })
-
 async function accountPlugin(app: FastifyInstance) {
   const userService = app.userService
 

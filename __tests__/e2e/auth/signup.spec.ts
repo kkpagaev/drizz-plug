@@ -4,9 +4,9 @@ import { build } from "../../../src/build"
 import { FastifyInstance } from "fastify"
 import { CreateAccountSchema } from "../../../src/modules/account/schemas/create-account.schema"
 import dbPlugin from "../../../src/plugins/db.plugin"
-import configPlugin from "../../../src/plugins/config.plugin"
 import accountPlugin from "../../../src/modules/account/account.plugin"
 import { fastifyPlugin as fp } from "fastify-plugin"
+import configPlugin from "../../../src/plugins/config.plugin"
 
 class UserServiceMock {
   async create() {

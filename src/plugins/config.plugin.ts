@@ -1,5 +1,6 @@
 import { z } from "zod"
 import fastifyPlugin from "fastify-plugin"
+import * as dotenv from "dotenv"
 
 export const ConfigSchema = z.object({
   dbUrl: z.string().default("postgres://user:user@localhost:7780/user")
@@ -19,6 +20,8 @@ declare module "fastify" {
 
 export default fastifyPlugin(
   async (app) => {
+    dotenv.config()
+
     const config = getConfig()
 
     app.decorate("config", config)

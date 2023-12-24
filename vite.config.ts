@@ -4,6 +4,9 @@ import { defineConfig } from "vitest/config"
 
 export default defineConfig({
   test: {
+    deps: {
+      inline: ["@fastify/autoload"],
+    },
     environment: "node",
     include: ["src/**/*.spec.ts", "__tests__/e2e/**/*.spec.ts"],
     hookTimeout: 1000000000,
