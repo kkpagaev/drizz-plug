@@ -3,7 +3,8 @@ import fastifyPlugin from "fastify-plugin"
 import * as dotenv from "dotenv"
 
 export const ConfigSchema = z.object({
-  dbUrl: z.string().default("postgres://user:user@localhost:7780/user")
+  DB_URL: z.string().default("postgres://user:user@localhost:7780/user"),
+  JWT_SECRET: z.string().default("secret")
 })
 
 export type Config = z.infer<typeof ConfigSchema>

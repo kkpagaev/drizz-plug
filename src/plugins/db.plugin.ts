@@ -25,7 +25,7 @@ export default fastifyPlugin(
   async (app) => {
     const config = app.config!
 
-    const { client, db } = createDrizzle({ dbUrl: config.dbUrl })
+    const { client, db } = createDrizzle({ dbUrl: config.DB_URL })
     await client.connect()
 
     app.decorate("db", db)

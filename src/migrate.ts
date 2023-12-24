@@ -3,7 +3,7 @@ import { getConfig } from "./plugins/config.plugin"
 import { createDrizzle } from "./plugins/db.plugin"
 
 async function run_migration() {
-  const { dbUrl } = getConfig()
+  const { DB_URL: dbUrl } = getConfig()
 
   const { client, db } = createDrizzle({ dbUrl })
 

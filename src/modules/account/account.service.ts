@@ -2,6 +2,8 @@ import { eq } from "drizzle-orm"
 import { accounts } from "../../schema"
 import { CreateUser, UserService } from "../user/user.service"
 import { Drizzle } from "../../plugins/db.plugin"
+import { JwtService } from "../jwt/jwt.service"
+import { compareSync, hash } from "bcrypt"
 
 export type CreateAccount = {
   email: string
@@ -11,7 +13,8 @@ export type CreateAccount = {
 export class AccountService {
   constructor(
     private db: Drizzle,
-    private userSerice: UserService
+    private userSerice: UserService,
+    private jwtService: JwtService
   ) {}
 
   async register(dto: CreateAccount) {
@@ -23,9 +26,10 @@ export class AccountService {
     }
 
     const user = await this.db.transaction(async (trx) => {
+      const hashedPassword = await hash(password, 10)
       await trx.insert(accounts).values({
         email,
-        password
+        password: hashedPassword
       })
 
       const user = await this.userSerice.create(
@@ -40,6 +44,20 @@ export class AccountService {
     })
 
     return user
+  }
+
+  async login(email: string, password: string) {
+    const account = await this.findByEmail(email)
+
+    if (!account || !compareSync(password, account.password)) {
+      throw new Error("invalid credentials")
+    }
+
+    const token = this.jwtService.sign({
+      userId: account.id
+    })
+
+    return token
   }
 
   async findByEmail(email: string) {

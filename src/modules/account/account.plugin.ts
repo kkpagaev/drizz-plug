@@ -12,12 +12,13 @@ declare module "fastify" {
 // module
 export default fastifyPlugin(accountPlugin, {
   name: "account",
-  dependencies: ["user", "db"]
+  dependencies: ["user", "db", "jwt"]
 })
 async function accountPlugin(app: FastifyInstance) {
   const userService = app.userService
+  const jwtService = app.jwtService
 
-  const svc = new AccountService(app.db, userService)
+  const svc = new AccountService(app.db, userService, jwtService)
 
   app.decorate("accountService", svc, ["db", "userService"])
 
