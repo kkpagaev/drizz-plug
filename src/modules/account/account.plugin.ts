@@ -1,6 +1,7 @@
 import { AccountService } from "./account.service"
 import fastifyPlugin from "fastify-plugin"
 import { accountRoutes } from "./account.routes"
+import { FastifyInstance } from "fastify"
 
 declare module "fastify" {
   interface FastifyInstance {
@@ -9,20 +10,19 @@ declare module "fastify" {
 }
 
 // module
-export default fastifyPlugin(
-  async (app) => {
-    const userService = app.userService
+export default fastifyPlugin(accountPlugin, {
+  name: "account",
+  dependencies: ["user"]
+})
 
-    const svc = new AccountService(app.db, userService)
+async function accountPlugin(app: FastifyInstance) {
+  const userService = app.userService
 
-    app.decorate("accountService", svc, ["db", "userService"])
+  const svc = new AccountService(app.db, userService)
 
-    await app.register(accountRoutes, {
-      prefix: "/account"
-    })
-  },
-  {
-    name: "account",
-    dependencies: ["user"]
-  }
-)
+  app.decorate("accountService", svc, ["db", "userService"])
+
+  await app.register(accountRoutes, {
+    prefix: "/account"
+  })
+}

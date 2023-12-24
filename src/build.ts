@@ -6,7 +6,6 @@ export async function build() {
   const app = Fastify({})
 
   await app.register(appPlugin)
-  app.printRoutes()
 
   return app.withTypeProvider<ZodTypeProvider>()
 }

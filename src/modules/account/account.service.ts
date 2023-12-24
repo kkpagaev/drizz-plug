@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm"
 import { accounts } from "../../schema"
 import { CreateUser, UserService } from "../user/user.service"
-import { Drizzle } from "../../plugins/db"
+import { Drizzle } from "../../plugins/db.plugin"
 
 export type CreateAccount = {
   email: string
@@ -46,10 +46,6 @@ export class AccountService {
     const account = await this.db.query.accounts.findFirst({
       where: eq(accounts.email, email)
     })
-
-    if (!account) {
-      throw new Error("Account not found")
-    }
 
     return account
   }

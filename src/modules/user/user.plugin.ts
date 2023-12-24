@@ -9,17 +9,16 @@ declare module "fastify" {
   }
 }
 
-export default fastifyPlugin(
-  async (app: FastifyInstance) => {
-    const svc = new UserService(app.db)
+export default fastifyPlugin(userPlugin, {
+  name: "user",
+  dependencies: ["db"]
+})
+async function userPlugin(app: FastifyInstance) {
+  const svc = new UserService(app.db)
 
-    app.decorate("userService", svc, ["db"])
+  app.decorate("userService", svc, ["db"])
 
-    await app.register(userRoutes, {
-      prefix: "/user"
-    })
-  },
-  {
-    name: "user"
-  }
-)
+  await app.register(userRoutes, {
+    prefix: "/user"
+  })
+}
